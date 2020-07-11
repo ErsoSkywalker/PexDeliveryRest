@@ -51,17 +51,32 @@ public class tblMensajeroService {
 	public Response loginMensajero(tblMensajeroDto Dto) {
 		String Mensaje = MensajeDao.loginMensajero(Dto).getMensaje();
 		return (Mensaje.equalsIgnoreCase("0"))
-				? Response
-						.ok("{\"Mensaje\":\"No se ha encontrado Mensajero con esas credenciales\"}")
-						.build()
+				? Response.ok("{\"Mensaje\":\"No se ha encontrado Mensajero con esas credenciales\"}").build()
 				: Response
 						.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje))))
 						.build();
 	}
-	
+
 	public Response agregarMensajero(tblMensajeroDto Dto, Integer idTamano) {
 		String Mensaje = MensajeDao.agregarMensajero(Dto, idTamano).getMensaje();
-		return (Mensaje.equalsIgnoreCase("0"))? Response.ok("{\"Mensaje\":\"Ya existe un Mensajero con esas credenciales de acceso\"}").build() : Response.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje)))).build();
+		return (Mensaje.equalsIgnoreCase("0"))
+				? Response.ok("{\"Mensaje\":\"Ya existe un Mensajero con esas credenciales de acceso\"}").build()
+				: Response
+						.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje))))
+						.build();
+	}
+
+	public Response editarMensajero(tblMensajeroDto Dto, Integer idTamano) {
+		String Mensaje = MensajeDao.agregarMensajero(Dto, idTamano).getMensaje();
+		return (Mensaje
+				.equalsIgnoreCase("0"))
+						? Response.ok("{\"Mensaje\":\"El Mensajero que intentas editar, ya no existe\"}").build()
+						: (Mensaje.equalsIgnoreCase("-1")) ? Response
+								.ok("{\"Mensaje\":\"Ya existe un Mensajero con esas credenciales de acceso\"}").build()
+								: Response
+										.ok(tblMensajeroAssembler
+												.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje))))
+										.build();
 	}
 
 }

@@ -60,5 +60,11 @@ public class tblMensajeroResource {
     public Response agregarMensajero(tblMensajeroDto Dto, @PathParam("idTamano") Integer idTamano) {
     	return tblMensajeroService.agregarMensajero(Dto, idTamano);
     }
+    
+    @POST
+    @Path("editarMensajero/{idTamano}")
+    public Response editarMensajero(tblMensajeroDto Dto, @PathParam("idTamano") Integer idTamano) {
+    	return tblMensajeroService.editarMensajero(Dto, idTamano);
+    }
 	
 }

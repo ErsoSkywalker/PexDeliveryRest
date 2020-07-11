@@ -155,4 +155,38 @@ delimiter //
 
 delimiter ;
 
+drop procedure if exists spEditarMensajero;
+
+delimiter //
+
+	create procedure spEditarMensajero(in idMensajeroxd int, in Nombrexd nvarchar(60), in ApellidoPxd nvarchar(60), in ApellidoMxd nvarchar(60), in Usuarioxd nvarchar(60), in Contrasenaxd nvarchar(60), in idTamanoxd int)
+    BEGIN
+    
+		IF((Select idMensajero from tblmensajero where idMensajero = idMensajeroxd) is not null)
+        THEN
+        
+			IF((Select idMensajero from tblmensajero where Usuario = Usuarioxd AND idMensajero != idMensajeroxd) is null)
+            THEN
+            
+				update tblmensajero set Nombre = Nombrexd, ApellidoP = ApellidoPxd, ApellidoM = ApellidoMxd, Usuario = Usuarioxd, Contrasena = md5(Contrasenaxd), idTamano = idTamanoxd where idMensajero = idMensajeroxd;
+				Select idMensajeroxd as Mensaje;
+            
+            ELSE
+            
+				Select -1 as Mensaje;
+            
+            END IF;
+        
+			
+        
+        ELSE
+        
+			Select 0 as Mensaje;
+        
+        END IF;
+    
+    END //
+
+delimiter ;
 select * from tblmensajero;
+call spEditarMensajero(4,'NombreCambiado','ApellidoCambiado4','ApellidoCambiado3','root','root',1);
