@@ -22,32 +22,46 @@ public class tblMensajeroService {
 
 	@Autowired
 	private tblMensajeroAssembler tblMensajeroAssembler;
+
+	@Autowired
+	private tblMensajeroRepository tblMensajeroRepository;
+
+	@Autowired
+	private tblTamanoRepository tblTamanoRepository;
+
+	@Autowired
+	private MensajeDao MensajeDao;
+
+	public Response getMensajeros() {
+		ArrayList<tblMensajeroEntity> Mensajeros = Lists.newArrayList(tblMensajeroRepository.findAll());
+		return Response.ok(tblMensajeroAssembler.toResources(Mensajeros)).build();
+	}
+
+	public Response getMensajeroByID(Integer idMensajero) {
+		return Response.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(idMensajero))).build();
+	}
+
+	public Response getMensajeroByTamano(Integer idTamano) {
+		return Response
+				.ok(tblMensajeroAssembler
+						.toResources(tblMensajeroRepository.findByTamanoEntity(tblTamanoRepository.findOne(idTamano))))
+				.build();
+	}
+
+	public Response loginMensajero(tblMensajeroDto Dto) {
+		String Mensaje = MensajeDao.loginMensajero(Dto).getMensaje();
+		return (Mensaje.equalsIgnoreCase("0"))
+				? Response
+						.ok("{\"Mensaje\":\"No se ha encontrado Mensajero con esas credenciales\"}")
+						.build()
+				: Response
+						.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje))))
+						.build();
+	}
 	
-    @Autowired
-    private tblMensajeroRepository tblMensajeroRepository;
-    
-    @Autowired
-    private tblTamanoRepository tblTamanoRepository;
-    
-    @Autowired
-    private MensajeDao MensajeDao;
-	
-    public Response getMensajeros() {
-    	 ArrayList<tblMensajeroEntity> Mensajeros = Lists.newArrayList(tblMensajeroRepository.findAll());
-         return Response.ok(tblMensajeroAssembler.toResources(Mensajeros)).build();
-    }
-    
-    public Response getMensajeroByID(Integer idMensajero) {
-    	return Response.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(idMensajero))).build();
-    }
-    
-    public Response getMensajeroByTamano(Integer idTamano) {
-    	return Response.ok(tblMensajeroAssembler.toResources(tblMensajeroRepository.findByTamanoEntity(tblTamanoRepository.findOne(idTamano)))).build();
-    }
-    
-    public Response loginMensajero(tblMensajeroDto Dto) {
-    	String Mensaje = MensajeDao.loginMensajero(Dto).getMensaje();
-    	return (Mensaje.equalsIgnoreCase("0"))? Response.ok("{\"Mensaje\":\"No se ha encontrado Mensajero con esas credenciales\"}").build() : Response.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje)))).build();
-    }
-    
+	public Response agregarMensajero(tblMensajeroDto Dto, Integer idTamano) {
+		String Mensaje = MensajeDao.agregarMensajero(Dto, idTamano).getMensaje();
+		return (Mensaje.equalsIgnoreCase("0"))? Response.ok("{\"Mensaje\":\"Ya existe un Mensajero con esas credenciales de acceso\"}").build() : Response.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje)))).build();
+	}
+
 }

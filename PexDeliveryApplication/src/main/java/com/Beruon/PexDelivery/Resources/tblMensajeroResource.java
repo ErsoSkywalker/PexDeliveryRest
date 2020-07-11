@@ -54,5 +54,11 @@ public class tblMensajeroResource {
     	return tblMensajeroService.loginMensajero(Dto);
     }
     
+    
+    @POST 
+    @Path("/AgregarMensajero/{idTamano}")
+    public Response agregarMensajero(tblMensajeroDto Dto, @PathParam("idTamano") Integer idTamano) {
+    	return tblMensajeroService.agregarMensajero(Dto, idTamano);
+    }
 	
 }

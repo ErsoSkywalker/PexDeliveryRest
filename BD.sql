@@ -182,7 +182,6 @@ create table tblMensajero(
     
 );
 
-insert into tblmensajero values(1,'Christian','Ontiveros','Valdelamar','admin','admin',1);
 
 
 create table tblEnvio(

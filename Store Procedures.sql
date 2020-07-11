@@ -121,10 +121,38 @@ delimiter //
 	 create procedure spLoginMensajero(in Usuarioxd nvarchar(60), in Contrasenaxd nvarchar(60))
      BEGIN
      
-		Select ifnull((Select idMensajero from tblmensajero where usuario = usuarioxd AND contrasena = contrasenaxd),0) as Mensaje;
+		Select ifnull((Select idMensajero from tblmensajero where usuario = usuarioxd AND contrasena = md5(contrasenaxd)),0) as Mensaje;
      
      END //
 
 delimiter ;
 
-call spLoginMensajero('admin','admin');
+
+drop procedure if exists spAgregarMensajero;
+delimiter //
+
+	create procedure spAgregarMensajero(in Nombrexd nvarchar(60), in ApellidoPxd nvarchar(60), in ApellidoMxd nvarchar(60), in Usuarioxd nvarchar(60), in Contrasenaxd nvarchar(60), in idTamanoxd int)
+    BEGIN
+    
+		declare idSiguiente int;
+        set idSiguiente = ifnull((Select MAX(idMensajero) from tblmensajero)+1,1);
+        
+        IF((Select idMensajero from tblmensajero where Usuario = Usuarioxd) is not null)
+        THEN
+        
+			Select 0 as Mensaje;
+        
+        ELSE
+        
+			Insert into tblmensajero values(idSiguiente, Nombrexd, ApellidoPxd, ApellidoMxd, Usuarioxd, md5(Contrasenaxd), idTamanoxd);
+			Select idSiguiente as Mensaje;
+        
+        END IF;
+        
+        
+    
+    END //
+
+delimiter ;
+
+select * from tblmensajero;

@@ -18,6 +18,14 @@ public class tblMensajeroDto extends ResourceSupport implements Serializable{
 		this.contrasena = contrasena;
 	}
 	
+	public tblMensajeroDto(String nombre, String apellidoP, String apellidoM, String usuario, String contrasena) {
+		this.nombre = nombre;
+		this.apellidoP = apellidoP;
+		this.apellidoM = apellidoM;
+		this.usuario = usuario;
+		this.contrasena = contrasena;
+	}
+	
 	private Integer idMensajero;
 	private String nombre;
 	private String apellidoP;

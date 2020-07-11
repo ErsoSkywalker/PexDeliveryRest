@@ -245,5 +245,44 @@ public class MensajeDao {
 
 			return Mensaje;
 		}
+		
+		public MensajeDto agregarMensajero(tblMensajeroDto Dto, Integer idTamano) {
+			MensajeDto Mensaje = jdbcTemplate.query(new PreparedStatementCreator() {
+
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+
+					/*
+					 * PreparedStatement ps =
+					 * con.prepareStatement("select * from user where username=?"); ps.setString(1,
+					 * username);
+					 */
+
+					PreparedStatement ps = con.prepareStatement("call spAgregarMensajero(?,?,?,?,?,?)");
+					ps.setString(1, Dto.getNombre());
+					ps.setString(2, Dto.getApellidoP());
+					ps.setString(3, Dto.getApellidoM());
+					ps.setString(4, Dto.getUsuario());
+					ps.setString(5, Dto.getContrasena());
+					ps.setInt(6, idTamano);
+					return ps;
+				}
+
+			}, new ResultSetExtractor<MensajeDto>() {
+
+				@Override
+				public MensajeDto extractData(ResultSet rs) throws SQLException, DataAccessException {
+					if (rs.next()) {
+						MensajeDto Mensaje = new MensajeDto(rs.getString("Mensaje"));
+						return Mensaje;
+					} else {
+						return null;
+					}
+				}
+
+			});
+
+			return Mensaje;
+		}
 	
 }
