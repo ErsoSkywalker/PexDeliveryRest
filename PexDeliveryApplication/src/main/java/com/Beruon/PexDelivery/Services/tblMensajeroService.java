@@ -68,6 +68,8 @@ public class tblMensajeroService {
 
 	public Response editarMensajero(tblMensajeroDto Dto, Integer idTamano) {
 		String Mensaje = MensajeDao.agregarMensajero(Dto, idTamano).getMensaje();
+		System.out.println(Dto.getIdMensajero());
+		System.out.println(Mensaje);
 		return (Mensaje
 				.equalsIgnoreCase("0"))
 						? Response.ok("{\"Mensaje\":\"El Mensajero que intentas editar, ya no existe\"}").build()

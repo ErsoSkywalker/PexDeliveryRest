@@ -62,8 +62,9 @@ public class tblMensajeroResource {
     }
     
     @POST
-    @Path("editarMensajero/{idTamano}")
+    @Path("/EditarMensajero/{idTamano}")
     public Response editarMensajero(tblMensajeroDto Dto, @PathParam("idTamano") Integer idTamano) {
+    	System.out.println(Dto.getIdMensajero());
     	return tblMensajeroService.editarMensajero(Dto, idTamano);
     }
 	

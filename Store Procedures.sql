@@ -188,5 +188,3 @@ delimiter //
     END //
 
 delimiter ;
-select * from tblmensajero;
-call spEditarMensajero(4,'NombreCambiado','ApellidoCambiado4','ApellidoCambiado3','root','root',1);
