@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: PexDelivery
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: conti
+Implementation-Vendor-Id: com.Beruon.501Legion
+Build-Jdk: 1.8.0_251
+Implementation-URL: http://projects.spring.io/spring-boot/PexDeliveryA
+ pplication/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
