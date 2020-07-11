@@ -9,6 +9,15 @@ public class tblMensajeroDto extends ResourceSupport implements Serializable{
 	
 	private static final long serialVersionUID = -5290198995172316155L;
 	
+	public tblMensajeroDto() {
+		
+	}
+	
+	public tblMensajeroDto(String usuario, String contrasena) {
+		this.usuario = usuario;
+		this.contrasena = contrasena;
+	}
+	
 	private Integer idMensajero;
 	private String nombre;
 	private String apellidoP;

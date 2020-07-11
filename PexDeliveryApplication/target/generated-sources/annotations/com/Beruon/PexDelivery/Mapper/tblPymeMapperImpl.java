@@ -38,7 +38,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-07-11T01:27:45-0500",
+    date = "2020-07-11T09:06:08-0500",
     comments = "version: 1.1.0.Beta2, compiler: Eclipse JDT (IDE) 3.22.0.v20200530-2032, environment: Java 1.8.0_251 (Oracle Corporation)"
 )
 public class tblPymeMapperImpl implements tblPymeMapper {
@@ -337,14 +337,14 @@ public class tblPymeMapperImpl implements tblPymeMapper {
 
         tblDireccionEnvioDto tblDireccionEnvioDto = new tblDireccionEnvioDto();
 
-        tblDireccionEnvioDto.setIdDireccionEnvio( Entidad.getIdDireccionEnvio() );
         tblDireccionEnvioDto.setCalle( Entidad.getCalle() );
         tblDireccionEnvioDto.setColonia( Entidad.getColonia() );
         tblDireccionEnvioDto.setDelegacion( Entidad.getDelegacion() );
         tblDireccionEnvioDto.setEstado( Entidad.getEstado() );
-        tblDireccionEnvioDto.setPais( Entidad.getPais() );
+        tblDireccionEnvioDto.setIdDireccionEnvio( Entidad.getIdDireccionEnvio() );
         tblDireccionEnvioDto.setNumeroExterior( Entidad.getNumeroExterior() );
         tblDireccionEnvioDto.setNumeroInterior( Entidad.getNumeroInterior() );
+        tblDireccionEnvioDto.setPais( Entidad.getPais() );
 
         return tblDireccionEnvioDto;
     }
@@ -562,8 +562,8 @@ public class tblPymeMapperImpl implements tblPymeMapper {
 
         tblContactoMensajeroDto tblContactoMensajeroDto = new tblContactoMensajeroDto();
 
-        tblContactoMensajeroDto.setContacto( Entidad.getContacto() );
         tblContactoMensajeroDto.setIdContactoMensajero( Entidad.getIdContactoMensajero() );
+        tblContactoMensajeroDto.setContacto( Entidad.getContacto() );
 
         return tblContactoMensajeroDto;
     }
@@ -576,11 +576,11 @@ public class tblPymeMapperImpl implements tblPymeMapper {
 
         tblEnvioDto tblEnvioDto = new tblEnvioDto();
 
-        tblEnvioDto.setCodigoEnvio( entidad.getCodigoEnvio() );
-        tblEnvioDto.setCodigoRecepcion( entidad.getCodigoRecepcion() );
-        tblEnvioDto.setCodigoSeguimiento( entidad.getCodigoSeguimiento() );
         tblEnvioDto.setIdEnvio( entidad.getIdEnvio() );
         tblEnvioDto.setInstrucciones( entidad.getInstrucciones() );
+        tblEnvioDto.setCodigoSeguimiento( entidad.getCodigoSeguimiento() );
+        tblEnvioDto.setCodigoRecepcion( entidad.getCodigoRecepcion() );
+        tblEnvioDto.setCodigoEnvio( entidad.getCodigoEnvio() );
 
         return tblEnvioDto;
     }

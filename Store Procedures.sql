@@ -113,3 +113,18 @@ delimiter //
     END //
 
 delimiter ;
+
+drop procedure if exists spLoginMensajero;
+
+delimiter //
+
+	 create procedure spLoginMensajero(in Usuarioxd nvarchar(60), in Contrasenaxd nvarchar(60))
+     BEGIN
+     
+		Select ifnull((Select idMensajero from tblmensajero where usuario = usuarioxd AND contrasena = contrasenaxd),0) as Mensaje;
+     
+     END //
+
+delimiter ;
+
+call spLoginMensajero('admin','admin');

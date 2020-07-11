@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.Beruon.PexDelivery.dto.MensajeDto;
 import com.Beruon.PexDelivery.dto.tblDireccionesPymeDto;
+import com.Beruon.PexDelivery.dto.tblMensajeroDto;
 
 @Component
 public class MensajeDao {
@@ -190,6 +191,41 @@ public class MensajeDao {
 					ps.setString(7, Dto.getPais());
 					ps.setInt(8, Dto.getNumeroExterior());
 					ps.setInt(9, Dto.getNumeroInterior());
+					return ps;
+				}
+
+			}, new ResultSetExtractor<MensajeDto>() {
+
+				@Override
+				public MensajeDto extractData(ResultSet rs) throws SQLException, DataAccessException {
+					if (rs.next()) {
+						MensajeDto Mensaje = new MensajeDto(rs.getString("Mensaje"));
+						return Mensaje;
+					} else {
+						return null;
+					}
+				}
+
+			});
+
+			return Mensaje;
+		}
+		
+		public MensajeDto loginMensajero(tblMensajeroDto Dto) {
+			MensajeDto Mensaje = jdbcTemplate.query(new PreparedStatementCreator() {
+
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+
+					/*
+					 * PreparedStatement ps =
+					 * con.prepareStatement("select * from user where username=?"); ps.setString(1,
+					 * username);
+					 */
+
+					PreparedStatement ps = con.prepareStatement("call spLoginMensajero(?,?)");
+					ps.setString(1, Dto.getUsuario());
+					ps.setString(2, Dto.getContrasena());
 					return ps;
 				}
 

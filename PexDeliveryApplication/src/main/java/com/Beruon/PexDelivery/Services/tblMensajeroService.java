@@ -12,6 +12,8 @@ import com.Beruon.PexDelivery.Entities.tblMensajeroEntity;
 import com.Beruon.PexDelivery.Entities.tblTamanoEntity;
 import com.Beruon.PexDelivery.Repositories.tblMensajeroRepository;
 import com.Beruon.PexDelivery.Repositories.tblTamanoRepository;
+import com.Beruon.PexDelivery.dto.tblMensajeroDto;
+import com.Beruon.PexDelivery.dao.MensajeDao;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 
@@ -26,6 +28,9 @@ public class tblMensajeroService {
     
     @Autowired
     private tblTamanoRepository tblTamanoRepository;
+    
+    @Autowired
+    private MensajeDao MensajeDao;
 	
     public Response getMensajeros() {
     	 ArrayList<tblMensajeroEntity> Mensajeros = Lists.newArrayList(tblMensajeroRepository.findAll());
@@ -38,6 +43,11 @@ public class tblMensajeroService {
     
     public Response getMensajeroByTamano(Integer idTamano) {
     	return Response.ok(tblMensajeroAssembler.toResources(tblMensajeroRepository.findByTamanoEntity(tblTamanoRepository.findOne(idTamano)))).build();
+    }
+    
+    public Response loginMensajero(tblMensajeroDto Dto) {
+    	String Mensaje = MensajeDao.loginMensajero(Dto).getMensaje();
+    	return (Mensaje.equalsIgnoreCase("0"))? Response.ok("{\"Mensaje\":\"No se ha encontrado Mensajero con esas credenciales\"}").build() : Response.ok(tblMensajeroAssembler.toResource(tblMensajeroRepository.findOne(Integer.parseInt(Mensaje)))).build();
     }
     
 }

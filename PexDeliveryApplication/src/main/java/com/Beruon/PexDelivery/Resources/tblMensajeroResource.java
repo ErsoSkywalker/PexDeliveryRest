@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -17,6 +18,7 @@ import com.Beruon.PexDelivery.Assembler.tblMensajeroAssembler;
 import com.Beruon.PexDelivery.Entities.tblMensajeroEntity;
 import com.Beruon.PexDelivery.Repositories.tblMensajeroRepository;
 import com.Beruon.PexDelivery.Services.tblMensajeroService;
+import com.Beruon.PexDelivery.dto.tblMensajeroDto;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 
@@ -44,6 +46,12 @@ public class tblMensajeroResource {
     @Path("/GetMensajeroByTamano/{idTamano}")
     public Response getMensajeroByTamano(@PathParam("idTamano") Integer idTamano) {
     	return tblMensajeroService.getMensajeroByTamano(idTamano);
+    }
+    
+    @POST
+    @Path("/Login")
+    public Response loginMensajero(tblMensajeroDto Dto) {
+    	return tblMensajeroService.loginMensajero(Dto);
     }
     
 	
